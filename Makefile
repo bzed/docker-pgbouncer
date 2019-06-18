@@ -1,5 +1,5 @@
 all:
-	docker build --pull -t edoburu/pgbouncer .
+	docker build --pull -t bzed/pgbouncer .
 
 clean:
-	docker rmi edoburu/pgbouncer:latest
+	docker rmi bzed/pgbouncer:latest

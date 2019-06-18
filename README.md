@@ -1,7 +1,7 @@
 PgBouncer Docker image
 ======================
 
-This is a minimal PgBouncer image, based on Alpine Linux.
+This is a minimal PgBouncer image, based on RHEL7 + EPEL.
 
 Features:
 
