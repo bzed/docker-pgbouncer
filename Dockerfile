@@ -31,7 +31,7 @@ RUN chown -R postgres /var/run/pgbouncer /etc/pgbouncer
 
 # cleanup
 RUN rm -rf /tmp/pgbouncer* 
-RUN yum erase -y autoconf automake udns-devel curl gcc glibc-devel libevent-devel libtool make openssl-devel pkgconfig
+RUN yum clean all && rm -rf /var/cache/yum
 
 ADD entrypoint.sh /entrypoint.sh
 USER postgres
