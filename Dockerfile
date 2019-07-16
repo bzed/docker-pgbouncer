@@ -3,7 +3,6 @@ ARG VERSION=1.9.0
 
 # Inspiration from https://github.com/gmr/alpine-pgbouncer/blob/master/Dockerfile
 
-USER root
 RUN yum-config-manager --enable rhel-server-rhscl-7-rpms && \
     yum-config-manager --enable rhel-7-server-optional-rpms
 
@@ -25,16 +24,14 @@ RUN make && make install
 
 RUN mkdir -p /etc/pgbouncer /var/log/pgbouncer /var/run/pgbouncer
 
-# entrypoint installs the configuation, allow to write as postgres user
-RUN adduser postgres
-RUN chown -R postgres /var/run/pgbouncer /etc/pgbouncer
+RUN chown -R 10003 /var/run/pgbouncer /etc/pgbouncer
 
 # cleanup
 RUN rm -rf /tmp/pgbouncer* 
 RUN yum clean all && rm -rf /var/cache/yum
 
 ADD entrypoint.sh /entrypoint.sh
-USER postgres
+USER 10003
 EXPOSE 5432
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/pgbouncer", "/etc/pgbouncer/pgbouncer.ini"]
