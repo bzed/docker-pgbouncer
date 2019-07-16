@@ -24,14 +24,13 @@ RUN make && make install
 
 RUN mkdir -p /etc/pgbouncer /var/log/pgbouncer /var/run/pgbouncer
 
-RUN chown -R 10003 /var/run/pgbouncer /etc/pgbouncer
+RUN chmod 4777 /var/run/pgbouncer /etc/pgbouncer /var/log/pgbouncer
 
 # cleanup
 RUN rm -rf /tmp/pgbouncer* 
 RUN yum clean all && rm -rf /var/cache/yum
 
 ADD entrypoint.sh /entrypoint.sh
-USER 10003
 EXPOSE 5432
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/pgbouncer", "/etc/pgbouncer/pgbouncer.ini"]
